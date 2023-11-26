@@ -34,18 +34,23 @@ UserDao userdao;
 
 @Autowired
 CategoriesDao categoriesDao;
-	
+
+//Request to Home Page.
 @RequestMapping("/")
 public String index(Model m) {
 	List<Category>catalist=categoriesDao.getcatagories();
 	m.addAttribute("catalist",catalist);
 	return "index";
 }
+
+//Request Admin Login Page.
 @RequestMapping("/adminlogin")
 public String displayloginpage(Model m) {
 	m.addAttribute("admin",new Admin());
 	return "admin/login";
 }
+
+//Request SignOut.
 @RequestMapping("/signOut")
 public String signOut(Model m,HttpSession session) {
 	
@@ -58,6 +63,9 @@ public String signOut(Model m,HttpSession session) {
 	
 }
 
+
+//Admin Login Username & Password Validation and count user,book,cateogries,orders
+	
 @RequestMapping("/validateadminlogin")
 public String adminlogin(@ModelAttribute ("admin")Admin admin,Model model,HttpSession httpSession) {
 		int a=admindao.getAuthenicateAdmin(admin.getUsername(),admin.getPassword());
@@ -95,7 +103,8 @@ public String adminlogin(@ModelAttribute ("admin")Admin admin,Model model,HttpSe
 	}
 }
 
-
+//Request Dashboard Page and count book,categories,orders,user
+	
 @RequestMapping("/dashboard")
 public String displaydashboard(Model m,HttpSession httpSession) {
 	List<Book> countbook=bookdao.getCountBooks();
@@ -127,6 +136,9 @@ public String displayuserlistpage(Model m) {
 	return "admin/userlist";
 }*/
 
+
+//Request RegisterList with pagination
+	
 @RequestMapping(value="/registerlist/{pageid}")
 public String edit(@PathVariable int pageid,Model m){
 int total=5; 
