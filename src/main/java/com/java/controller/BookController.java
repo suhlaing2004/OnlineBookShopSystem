@@ -43,6 +43,8 @@ public class BookController {
 	@Autowired
 	CategoriesDao categoriesdao;
 
+	//Request addbook page from admin
+	
 	@RequestMapping("addbook")
 	public String showaddbook(Model m,HttpSession httpSession) {
 		m.addAttribute("book", new Book());
@@ -55,6 +57,8 @@ public class BookController {
 		return "admin/addbook";
 	}
 
+	//Book save 
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String savebook(@ModelAttribute("book") Book book, Model model) throws DataAccessException, IOException {
 
@@ -63,6 +67,8 @@ public class BookController {
 		return "redirect:/viewbook";
 	}
 
+	//showimage with id
+	
 	@RequestMapping("/showImage/{id}")
 	public void showImage(@PathVariable("id") int id, Model model, HttpServletResponse response)
 			throws SQLException, IOException {
@@ -75,6 +81,8 @@ public class BookController {
 
 	}
 
+	//Request viewbook page from admin
+	
 	@RequestMapping("viewbook")
 	public String viewbook(Model m,HttpSession httpSession) {
 		List<Book> booklist = bookdao.getBooks();
@@ -86,6 +94,8 @@ public class BookController {
 		return "admin/viewbook";
 	}
 
+	//Request editbook from admin
+	
 	@RequestMapping(value = "/editbook/{id}")
 	public String edit(@PathVariable int id, Model m) {
 		Book book = bookdao.getBookById(id);
@@ -96,6 +106,8 @@ public class BookController {
 		return "admin/bookeditform";
 	}
 
+	//Editsave book 
+
 	@RequestMapping(value = "/editsave", method = RequestMethod.POST)
 	public String editsave(@ModelAttribute("bookedit") Book book) throws DataAccessException, IOException {
 
@@ -104,7 +116,7 @@ public class BookController {
 		return "redirect:/viewbook";
 	}
 
-	
+	//Delete Book with id
 	
 	@RequestMapping(value="/deletebook/{id}",method = RequestMethod.GET)
 	public String delete(@PathVariable int id,Model m,RedirectAttributes reAtt){
