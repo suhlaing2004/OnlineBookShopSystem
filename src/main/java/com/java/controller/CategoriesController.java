@@ -28,6 +28,8 @@ import com.java.dao.CategoriesDao;
 public class CategoriesController {
 	@Autowired
 	CategoriesDao categoriesdao;
+
+	//	Requst addcategory page from admin and return addcatagory
 	
 	@RequestMapping("/addcatagory")
 	public String displayaddcatagory(Model m,HttpSession httpSession) {
@@ -38,6 +40,8 @@ public class CategoriesController {
 		
 		return "admin/addcatagory";
 	}
+
+	//Request viewcategory page from admin and return viewcatagory
 	
 	@RequestMapping("/viewcatagory")
 	public String displaycatagoriespage(Model m,HttpSession httpSession) {
@@ -49,6 +53,8 @@ public class CategoriesController {
 		
 		return "admin/viewcatagory";
 	}
+
+	//Save category to database and return viewcatagory
 	
 	@RequestMapping(value = "/savecatagory", method = RequestMethod.POST)
 	public String savebook(@ModelAttribute("catagory") Category category, Model model) throws DataAccessException, IOException {
@@ -57,6 +63,8 @@ public class CategoriesController {
 		model.addAttribute("catagorieslist", categoriesdao.getcatagories());
 		return "redirect:/viewcatagory";
 	}
+
+	//Delete category with id and return viewcatagory
 	
 	@RequestMapping(value = "/deletecatagory/{id}", method = RequestMethod.GET)
 	public String deletecatagory(@PathVariable int id,RedirectAttributes reAtt) {
@@ -76,6 +84,8 @@ public class CategoriesController {
 		}
 	}
 
+	//Edit category form admin and return catagoryeditform
+	
 	@RequestMapping(value = "/editcatagory/{id}")
 	public String edit(@PathVariable int id, Model m,HttpSession httpSession) {
 		Category category = categoriesdao.getCatagoryById(id);
@@ -87,6 +97,8 @@ public class CategoriesController {
 		
 		return "admin/catagoryeditform";
 	}
+
+	//Editcategory save from admin and return viewcatagory
 	
 	@RequestMapping(value = "/editcategorysave", method = RequestMethod.POST)
 	public String editsave(@ModelAttribute("categoryedit") Category category) throws DataAccessException, IOException {
