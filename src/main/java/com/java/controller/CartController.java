@@ -78,6 +78,8 @@ public class CartController {
 			session.setAttribute("userSession", user);
 				return "user/bookviewnew";
 			}
+
+	//user order book quantity and total price or cancel book or continue book
 	
 	@RequestMapping("cartview")
 	public String displayviewcart(Model m,HttpSession session) {
@@ -99,6 +101,8 @@ public class CartController {
 			}
 		
 	}
+
+	//User order book
 	
 	@RequestMapping(value = "cart/buy/{id}", method = RequestMethod.GET)
 	public String buy(@PathVariable("id") int id, HttpSession session) {
@@ -129,6 +133,8 @@ public class CartController {
 		return "redirect:/cartview";
 	}
 
+	//User remove book from shopping cart  before click order button
+
 	@RequestMapping(value = "cart/remove/{id}", method = RequestMethod.GET)
 	public String remove(@PathVariable("id") int id, HttpSession session) {
 		
@@ -146,6 +152,9 @@ public class CartController {
 		return "redirect:/cartview";
 		
 	}
+
+	//Order
+	
 	@RequestMapping(value="cart/order",method = RequestMethod.GET)
 	public String order(HttpSession session) {
 		
@@ -153,6 +162,8 @@ public class CartController {
 		return "redirect:/cartview";
 		
 	}
+
+	//Request orderslist page from admin
 
 	@RequestMapping("/orderslist")
 	public String orderslist(Model m,HttpSession httpSession){
@@ -170,6 +181,8 @@ public class CartController {
 	orderdao.deleteorder(id);
 	return "redirect:/orderslist";
 	}*/
+
+	//Delete orders with id from admin
 	
 	@RequestMapping(value="/deleteorder/{id}",method = RequestMethod.GET)
 	public String delete(@PathVariable int id,Model m,RedirectAttributes reAtt){
@@ -188,6 +201,8 @@ public class CartController {
 			return "redirect:/orderslist";
 		}
 	}
+
+	//Request ordrdetaillist page from admin
 	
 	@RequestMapping("/orderdetaillist")
 	public String orderdetaillist(Model m,HttpSession httpSession){
@@ -199,6 +214,8 @@ public class CartController {
 	
 	return "admin/orderdetaillist";
 	}
+
+	//Delete orderdetaillist with id from admin
 	
 	@RequestMapping(value="/deleteorderdetail/{id}",method=RequestMethod.GET)
 	public String deleteorderdetail(@PathVariable int id) {
@@ -207,6 +224,8 @@ public class CartController {
 		return "redirect:/orderdetaillist";
 	}
 
+	//User after click order button ,view checkout page 
+	
 	@RequestMapping(value="/saveorder",method=RequestMethod.POST)
 	public String saveOrder(HttpSession session,@ModelAttribute("order")Orders orders,Model m)throws NoSuchAlgorithmException, IOException, SQLException  {
 		@SuppressWarnings("unchecked")
@@ -239,7 +258,7 @@ public class CartController {
 
 }
 	
-	
+	//Request order page from admin
 	
 	@RequestMapping("/order")
 	public String order(Model m,HttpSession httpSession){
@@ -251,6 +270,8 @@ public class CartController {
 	
 	return "admin/order";
 	}
+
+	//Request ordersbydatelist page form admin and show orders by date
 	
 	@RequestMapping("/ordersbydatelist")
 	public String orderbydate(Model m,HttpSession session) {
